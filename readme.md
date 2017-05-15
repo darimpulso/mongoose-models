@@ -14,49 +14,69 @@ $ npm install mongoose-models
 require('mongoose-models').init({
 	url: 'mongodb://localhost/dbname',
 	types: [ 'email', 'url', 'uuid' ],
-	modelPath: '/path/to/models/dir'
+	modelPath: '/path/to/models/dir',
+	debug: false
 });
 ```
 
 ## Usage
 
-##### models/Person.js
+### Init
+
+- `url` - url for mongodb server to be used for these models
+- `modelPath` - the full path to where model files are to be loaded from
+- `types` - extra types to be loaded (can include custom types via filepath using prefix `/` or `.` such as `./custom_types/title`)
+- `debug` - to enable/disable debug messages when loading types and models registry
+
+Note: `email` and `url` come with `mongoose-types` module.
+
+```javascript
+require('mongoose-models').init({
+	url: 'mongodb://localhost/dbname',
+	types: [ 'email', 'url', 'uuid', `./custom_types/title` ],
+	modelPath: path.resolve(__dirname, 'models'),
+	debug: true
+});
+```
+
+
+#### models/Person.js
 
 ```javascript
 var models = require('mongoose-models');
 
 var Person = models.create('Person', {
-	
+
 	// If this is given and truthy, the mongoose-types timestamps
 	// plugin will be loaded for this model creating automatically
 	// updating 'createdAt' and 'updatedAt' properties
 	useTimestamps: true,
-	
+
 	// Define your mongoose schema here
 	schema: {
 		firstName: String,
 		lastName: String,
-		
+
 		// Special types like Email, Url, and ObjectId can be accessed
 		// through the models.types object
 		email: models.types.Email,
 		website: models.types.Url
 	},
-	
+
 	// Instance methods can be defined here, eg.
-	//  
+	//
 	//  Person.findOne({ firstName: 'bob' }, function(err, bob) {
 	//    bob.sendEmail(...);
 	//  });
 	//
 	methods: {
-		
+
 		sendEmail: function(subject, msg) {
 			someMailingLib.sendEmail(this.email, subject, msg);
 		}
-		
+
 	},
-	
+
 	// Anything other than the above properties is considered a static
 	// properties and stored directly on the model, eg.
 	//
@@ -72,11 +92,11 @@ var Person = models.create('Person', {
 		}
 		Person.findOne(lookup, callback);
 	}
-	
+
 });
 ```
 
-##### some-other-file.js
+#### some-other-file.js
 
 ```javascript
 var models = require('mongoose-models');
@@ -84,7 +104,7 @@ var models = require('mongoose-models');
 var Person = models.require('Person')();
 
 Person.findByName('bob', function(err, bob) {
-	
+
 });
 ```
 
@@ -92,7 +112,7 @@ Person.findByName('bob', function(err, bob) {
 
 Circular references are rather messy in Mongoose. To make this much easier there is built-in support for circular references in mongoose-models. For example, say you have two models:
 
-##### Foo.js
+#### Foo.js
 
 ```javascript
 var models = require('mongoose-models');
@@ -106,7 +126,7 @@ models.create('Foo', {
 });
 ```
 
-##### Bar.js
+#### Bar.js
 
 ```javascript
 var models = require('mongoose-models');
@@ -189,7 +209,7 @@ Loading REPL...
 undefined
 > Foo.find({ }, store('foos'));
 { ... }
-> 
+>
 Stored 2 arguments in "foos"
 > print(foos);
 {
