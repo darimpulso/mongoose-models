@@ -25,6 +25,7 @@ require('mongoose-models').init({
 
 - `url` - url for mongodb server to be used for these models
 - `modelPath` - the full path to where model files are to be loaded from
+- `modelIgnorePattern` - pattern of files to ignore when loading models
 - `types` - extra types to be loaded (can include custom types via filepath using prefix `/` or `.` such as `./custom_types/title`)
 - `debug` - to enable/disable debug messages when loading types and models registry
 
@@ -35,10 +36,10 @@ require('mongoose-models').init({
 	url: 'mongodb://localhost/dbname',
 	types: [ 'email', 'url', 'uuid', `./custom_types/title` ],
 	modelPath: path.resolve(__dirname, 'models'),
+	modelIgnorePattern: /index|\.test/
 	debug: true
 });
 ```
-
 
 #### models/Person.js
 
