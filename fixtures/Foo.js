@@ -1,4 +1,4 @@
-var models = require('mongoose-models');
+var models = require('../lib');
 
 var Bar = models.require('Bar')();
 

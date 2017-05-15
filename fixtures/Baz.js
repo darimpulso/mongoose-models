@@ -1,5 +1,4 @@
-var models = require('mongoose-models');
-
+var models = require('../lib');
 models.create('Baz', {
   schema: {
     child: {

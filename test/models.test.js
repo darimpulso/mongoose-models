@@ -10,7 +10,6 @@ models.init({
 });
 
 var Person = models.require('Person')()
-
 test('Person', t => {
   console.log('Person', Person)
   t.truthy(Person, 'Person schema is defined')
@@ -19,10 +18,23 @@ test('Person', t => {
   }), 'creates Person instance')
 })
 
-test.skip('Foo', t => {
-  t.is(Foo, true, 'Foo schema is defined')
+var Foo = models.require('Foo')()
+test('Foo', t => {
+  t.truthy(Foo, 'Foo schema is defined')
 })
 
-test.skip('Bar', t => {
-  t.is(Bar, true, 'Bar schema is defined')
+var Bar = models.require('Bar')()
+test('Bar', t => {
+  t.truthy(Bar, 'Bar schema is defined')
+})
+
+var Baz = models.require('Baz')()
+test('Baz', t => {
+  t.truthy(Baz, 'Baz schema is defined')
+})
+
+
+var bob = require('./other')
+test.skip('find bob', t => {
+  t.pass()
 })
