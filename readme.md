@@ -20,21 +20,35 @@ Uses [ava](https://github.com/avajs/ava) test runner
 ### Init
 
 - `url` - url for mongodb server to be used for these models
-- `modelPath` - the full path to where model files are to be loaded from
-- `modelIgnorePattern` - pattern of files to ignore when loading models
 - `types` - extra types to be loaded (can include custom types via filepath using prefix `/` or `.` such as `./custom_types/title`)
 - `debug` - to enable/disable debug messages when loading types and models registry
 
-Note: `email` and `url` come with `mongoose-types` module.
+#### Load models config
+
+- `model` - config Object for how to load models
+- `model.ignore` - function or a pattern of files that when match will be ignored
+- `model.filePath` - full path to where model files are to be loaded from
+- `resolveName` - function to resolve file names to model identifiers. By default uses `classify` from [underscore.string](https://github.com/epeli/underscore.string)
+
+- `modelPath` same as `model.filePath`
+- `resolveModelName` same as `model.resolveName`
+- `ignore` same as `model.ignore`
+
+`email` and `url` come with the `mongoose-types` module.
 
 ```javascript
 var path = require('path')
 require('mongoose-models').init({
+	debug: true,
 	url: 'mongodb://localhost/dbname',
 	types: [ 'email', 'url', 'uuid', `./custom_types/title` ],
-	modelPath: path.resolve(__dirname, 'models'),
-	modelIgnorePattern: /index|\.test/
-	debug: true
+	model: {
+		filePath: path.resolve(__dirname, 'models'),
+		ignore: /index|\.test/,
+	    resolveName: function (name) {
+	      return name.toLowerCase()
+	    }
+	}
 });
 ```
 

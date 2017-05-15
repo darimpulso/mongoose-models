@@ -5,7 +5,9 @@ import path from 'path'
 models.init({
   url: 'mongodb://localhost/dbname',
   types: ['email', 'url', 'uuid'],
-  modelPath: path.resolve(__dirname, '../fixtures'),
+  model: {
+    filePath: path.resolve(__dirname, '../fixtures')
+  },
   debug: true
 });
 
