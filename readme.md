@@ -1,23 +1,19 @@
 # mongoose-models
 
-An extension of Mongoose's models
+An extension of Mongoose's models, see [npm:mongoose-models](https://www.npmjs.com/package/mongoose-models)
 
 ## Install
 
 ```bash
 $ npm install mongoose-models
+# installed
 ```
 
-## Init
+## Test
 
-```javascript
-require('mongoose-models').init({
-	url: 'mongodb://localhost/dbname',
-	types: [ 'email', 'url', 'uuid' ],
-	modelPath: '/path/to/models/dir',
-	debug: false
-});
-```
+Uses [ava](https://github.com/avajs/ava) test runner
+
+`$ npm test`
 
 ## Usage
 
@@ -32,6 +28,7 @@ require('mongoose-models').init({
 Note: `email` and `url` come with `mongoose-types` module.
 
 ```javascript
+var path = require('path')
 require('mongoose-models').init({
 	url: 'mongodb://localhost/dbname',
 	types: [ 'email', 'url', 'uuid', `./custom_types/title` ],
