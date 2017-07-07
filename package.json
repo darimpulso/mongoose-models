@@ -1,14 +1,14 @@
 {
   "name": "mongoose-models",
-  "version": "0.3.1",
-  "description": "A extension to mongoose's models",
+  "version": "0.4.0",
+  "description": "An extension to mongoose's models",
   "main": "lib/index.js",
   "scripts": {
     "test": "ava"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/SportZing/mongoose-models"
+    "url": "git://github.com/kristianmandrup/mongoose-models"
   },
   "keywords": [
     "mongoose",
@@ -16,7 +16,7 @@
     "db",
     "model"
   ],
-  "author": "James Brumond",
+  "author": "Kristian Mandrup",
   "license": "MIT",
   "dependencies": {
     "bson": "*",
